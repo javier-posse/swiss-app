@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="col">Ronda {{  roundNumber+1  }}/ {{ totalRounds }}</div>
+  <div class="col">
+    @for (match of matches; track match.firstPlayer){
+      <div class="row col-xs-12 center-block text-center d-flex" >
+        <div class="col mt-2 cursor-pointer" (click)="addPoint(match.firstPlayer)">{{ match.firstPlayer }}</div>
+        <div class="col-1 mt-2"><input class="form-control" type="text" value="0" disabled [id]="match.firstPlayer" name="{{ match.secondPlayer }}" #inputElement></div>
+        @if (match.secondPlayer) {
+          <div class="col-1 mt-2"><input class="form-control text-end" type="text" value="0" disabled [id]="match.secondPlayer" name="{{ match.firstPlayer }}" #inputElement></div>
+          <div class="col mt-2 cursor-pointer" (click)="addPoint(match.secondPlayer)">{{ match.secondPlayer }}</div>
+        }
+      </div>
+    }
+  </div>
+  <div class="row mt-2">
+    <div class="col d-flex justify-content-center">
+      <button class="btn btn-primary w-100" (click)="endRound(false)">>Reportar resultados</button>
+    </div>
+    <div class="col d-flex justify-content-center">
+      <button class="btn btn-primary w-100" (click)="endGame()">Terminar torneo</button>
+    </div>
+  </div>
+
+</div>

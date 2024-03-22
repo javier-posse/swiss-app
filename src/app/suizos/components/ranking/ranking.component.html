@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row col-xs-12 center-block text-center d-flex" >
+    <div class="col mt-2 border border-dark">Nombre de jugador</div>
+    <div class="col-4 mt-2 border border-dark">Puntuación</div>
+  </div>
+  @for (player of players; track player.playerName){
+    <div class="row col-xs-12 center-block text-center d-flex">
+      <div class="col mt-2 border">{{ player.playerName }}</div>
+      <div class="col-4 mt-2 border">{{ player.playerPoints }}</div>
+    </div>
+  }
+</div>

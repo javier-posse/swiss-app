@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col" #players>
+      <input type="text" class="mt-1 form-control" placeholder="Nombre de jugador"/>
+      <input type="text" class="mt-1 form-control" placeholder="Nombre de jugador"/>
+      <input type="text" class="mt-1 form-control" placeholder="Nombre de jugador"/>
+      <input type="text" class="mt-1 form-control" placeholder="Nombre de jugador"/>
+    </div>
+    <div class="row mt-2">
+      <div class="col d-flex justify-content-center">
+        <button class="btn btn-primary w-100" (click)="addPlayerInput()">+ Añadir jugador</button>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <button class="btn btn-primary w-100" (click)="startGame()">> Iniciar partida</button>
+      </div>
+    </div>
+  </div>
+</div>
