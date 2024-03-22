@@ -20,7 +20,7 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "baseHref": "/",
+            "baseHref": "/swiss-app",
             "assets": [
               "src/favicon.ico",
               "src/assets"
