@@ -8,7 +8,7 @@ export class Game {
   constructor(players: Player[], maxRoundTime: number) {
     this.players = players;
     this.maxRoundTime = maxRoundTime;
-    this.numberOfRounds = Math.floor(Math.log2(players.length))<3?3:Math.floor(Math.log2(players.length));
+    this.numberOfRounds = Math.ceil(Math.log2(players.length))<3?3:Math.floor(Math.log2(players.length));
     this.playedRounds=0;
   }
 
@@ -21,7 +21,7 @@ export class Game {
     while (copyOfPlayers.length>0) {
 
       let match:Match;
-      const firstPlayer = copyOfPlayers[Math.ceil(Math.random() * copyOfPlayers.length)];
+      const firstPlayer = copyOfPlayers[Math.floor(Math.random() * copyOfPlayers.length)];
       copyOfPlayers.splice(copyOfPlayers.indexOf(firstPlayer), 1);
 
       if (copyOfPlayers.length!=0) {
@@ -30,7 +30,7 @@ export class Game {
         let winsDirection : boolean=false;
         let playersNonRepeat : boolean = true;
         do {
-          playersSameWins = this.getSamePointsPlayers(copyOfPlayers, firstPlayer, playersNonRepeat);
+          playersSameWins = this.getSamePointsPlayers(copyOfPlayers, firstPlayer, playersNonRepeat, wins);
           wins === 0 && !winsDirection ? winsDirection =true : "";
           winsDirection?wins++:wins--;
 
@@ -51,11 +51,11 @@ export class Game {
     return round;
   }
 
-  getSamePointsPlayers (totalPlayers : Player[], firstPlayer : Player, playersNonRepeat: boolean) : Player[]{
+  getSamePointsPlayers (totalPlayers : Player[], firstPlayer : Player, playersNonRepeat: boolean, wins : number) : Player[]{
     let playersArray: Player[]=[];
 
     totalPlayers.forEach(player => {
-      if (player.playerPoints===firstPlayer.playerPoints) {
+      if (player.playerPoints===wins) {
         if(playersNonRepeat){
           if( !(firstPlayer.playerWins.includes(player.playerName) || firstPlayer.playerLoses.includes(player.playerName)) ){
             playersArray.push(player);
