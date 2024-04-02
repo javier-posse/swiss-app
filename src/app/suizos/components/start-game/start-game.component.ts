@@ -6,7 +6,8 @@ import { Game, Round, Match, Player } from '../../interfaces/game.component';
 
 @Component({
   selector: 'app-start-game',
-  templateUrl: './start-game.component.html'
+  templateUrl: './start-game.component.html',
+  styleUrl: './start-game.component.css'
 })
 export class StartGameComponent {
 

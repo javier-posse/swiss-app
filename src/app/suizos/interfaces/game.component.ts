@@ -13,24 +13,31 @@ export class Game {
   }
 
   public generateNextRound () : Round{
-    const copyOfPlayers = [...this.players];
+    const playerList = this.sortPlayersByPoints(this.players);
+    const copyOfPlayers = [...playerList];
     let matches: Match[]=[];
     let round;
 
     while (copyOfPlayers.length>0) {
 
       let match:Match;
-      const firstPlayer = copyOfPlayers[Math.floor(Math.random() * copyOfPlayers.length)];
+      const firstPlayer = copyOfPlayers[Math.ceil(Math.random() * copyOfPlayers.length)];
       copyOfPlayers.splice(copyOfPlayers.indexOf(firstPlayer), 1);
 
       if (copyOfPlayers.length!=0) {
         let playersSameWins : Player[]=[];
         let wins= firstPlayer.playerPoints;
         let winsDirection : boolean=false;
+        let playersNonRepeat : boolean = true;
         do {
-          playersSameWins = this.getSamePointsPlayers(copyOfPlayers, wins);
+          playersSameWins = this.getSamePointsPlayers(copyOfPlayers, firstPlayer, playersNonRepeat);
           wins === 0 && !winsDirection ? winsDirection =true : "";
           winsDirection?wins++:wins--;
+
+          if(winsDirection && wins===copyOfPlayers[0].playerPoints){
+            winsDirection=false;
+            playersNonRepeat=false;
+          }
         } while(playersSameWins.length===0);
         const secondPlayer = playersSameWins[Math.floor(Math.random() * playersSameWins.length)];
         copyOfPlayers.splice(copyOfPlayers.indexOf(secondPlayer), 1);
@@ -44,12 +51,18 @@ export class Game {
     return round;
   }
 
-  getSamePointsPlayers (totalPlayers : Player[], wins : number) : Player[]{
+  getSamePointsPlayers (totalPlayers : Player[], firstPlayer : Player, playersNonRepeat: boolean) : Player[]{
     let playersArray: Player[]=[];
 
     totalPlayers.forEach(player => {
-      if (player.playerPoints===wins) {
-        playersArray.push(player);
+      if (player.playerPoints===firstPlayer.playerPoints) {
+        if(playersNonRepeat){
+          if( !(firstPlayer.playerWins.includes(player.playerName) || firstPlayer.playerLoses.includes(player.playerName)) ){
+            playersArray.push(player);
+          }
+        }else{
+          playersArray.push(player);
+        }
       }
     });
     return playersArray;
